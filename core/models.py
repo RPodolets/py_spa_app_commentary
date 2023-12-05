@@ -3,7 +3,8 @@ from django.db import models
 
 class User(models.Model):
     username = models.CharField(max_length=128),
-    email = models.EmailField()
+    email = models.EmailField(max_length=256),
+    home_page = models.URLField(max_length=512, null=True, blank=True)
 
     def __str__(self) -> str:
         return self.username.__str__()
@@ -17,5 +18,8 @@ class Commentary(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    def __str__(self) -> str:
+    def __repr__(self) -> str:
         return f"<Commentary from {self.user.username} at {self.created}>"
+
+    def __str__(self) -> str:
+        return self.body if len(self.body) < 80 else self.body[:80] + "..."
