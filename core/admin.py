@@ -1,3 +1,15 @@
 from django.contrib import admin
 
-# Register your models here.
+from core.models import User, Commentary
+
+
+class UserAdmin(admin.ModelAdmin):
+    pass
+
+
+class CommentaryAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(User, UserAdmin)
+admin.site.register(Commentary, CommentaryAdmin)
