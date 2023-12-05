@@ -1,16 +1,17 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 {% block content %}
   <div class="custom-card">
     <form method="post" action="">
       {% csrf_token %}
-      {{ form.as_p }}
+      {{ form|crispy }}
       <button type="submit" class="btn btn-primary">Comment</button>
     </form>
-    {% for comment in commentary_list %}
-      {% if comment.parent %}
-        <p>{{ comment.parent.body|slice:":128" }}...</p>
-      {% endif %}
-      <p>{{ comment.body|safe }}</p>
-    {% endfor %}
+
+
+      {% for comment in commentary_list %}
+        {% include "includes/comment.html" %}
+      {% endfor %}
+
   </div>
 {% endblock %}
