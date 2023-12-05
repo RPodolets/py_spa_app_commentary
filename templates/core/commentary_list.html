@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="custom-card">
+  {% for comment in commentary_list %}
+    {% if comment.parent %}
+      <p>{{ comment.parent.body|slice:":128" }}...</p>
+    {% endif %}
+    <p>{{ comment.body|safe }}</p>
+  {% endfor %}
+  </div>
+{% endblock %}
