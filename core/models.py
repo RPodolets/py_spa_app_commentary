@@ -20,6 +20,7 @@ class Commentary(models.Model):
 
     class Meta:
         verbose_name_plural = "Commentaries"
+        ordering = ("-created",)
 
     def __repr__(self) -> str:
         return f"<Commentary from {self.user.username} at {self.created}>"
