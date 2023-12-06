@@ -1,31 +1,35 @@
 {% load crispy_forms_filters %}
-<div class="border-0 border-start border-2 ps-2" id="{{ comment.id }}">
-        <div class="mt-3">
-            <strong>{{comment.user}}</strong>
-            {% if  comment.parent.user %} to <strong>{{ comment.parent.user }}</strong>{% endif %}
-            <small class="text-muted">On {{ comment.created.date }}</small>
-        </div>
-        <div class="p-2 rounded">
-            {% if comment.parent %}
-            <p style="color: red">{{ comment.parent.body|slice:":128" }}...</p>
-            {% endif %}
-            <p>{{ comment.body|safe }}</p>
-            <button class="btn btn-primary btn-sm" onclick="handleReply({{ comment.id }})">Reply</button>
+{% load static %}
+<div class="comment-section ps-2 mb-5" id="{{ comment.id }}">
+  <div class="mt-3 comment-header">
+      <img src="{% static 'img/profile-default.png' %}"alt="profile-pic">
+      <strong>{{ comment.user }}</strong>
+      {% if  comment.parent.user %} to <strong>{{ comment.parent.user }}</strong>{% endif %}
+      <small class="text-muted">On {{ comment.created.date }}</small>
+      <a class="btn btn-secondary btn-sm" onclick="handleReply({{ comment.id }})">Reply</a>
 
-            <div id="reply-form-container-{{ comment.id }}" style="display:none">
+  </div>
+  <div class="p-2 mb-3 rounded">
+    {% if comment.parent %}
+      <div class="reply">{{ comment.parent.body|safe|slice:":128" }}...</div>
+    {% endif %}
+    <p>{{ comment.body|safe }}</p>
 
-                <form method="post" action="{% url 'core:reply' %}" class="mt-3">
-                    {% csrf_token %}
-                    <input type="hidden" name="parent" value="{{ comment.id }}">
-                    {{ form|crispy }}
-                    <div>
-                        <button type="button" onclick="handleCancel({{ comment.id }})" class="btn btn-light border btn-sm">Cancel</button>
-                        <button type="submit" class="btn btn-primary btn-sm">Submit</button>
-                    </div>
-                </form>
-            </div>
+
+    <div id="reply-form-container-{{ comment.id }}" style="display:none">
+      <form method="post" action="{% url 'core:reply' %}" class="mt-3">
+        {% csrf_token %}
+        <input type="hidden" name="parent" value="{{ comment.id }}">
+        {{ form|crispy }}
+        <div>
+          <button type="button" onclick="handleCancel({{ comment.id }})" class="btn btn-light border btn-sm">Cancel
+          </button>
+          <button type="submit" class="btn btn-primary btn-sm">Submit</button>
         </div>
-        {% for comment in comment.get_comments %}
-            {% include "includes/comment.html" with comment=comment %}
-        {% endfor %}
+      </form>
+    </div>
+  </div>
+  {% for comment in comment.get_comments %}
+    {% include "includes/comment.html" with comment=comment %}
+  {% endfor %}
 </div>

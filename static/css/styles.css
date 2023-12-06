@@ -1,6 +1,7 @@
 .custom-card {
     padding: 25px;
-    background: #cccccc;
+    margin-bottom: 25px;
+    background: rgba(255,255,255,0.27);
 }
 
 .main_container {
@@ -21,5 +22,31 @@ body {
 body::after {
     content: '';
     display: block;
+    margin-left: 10px;
     height: 70px;
+}
+
+.comment-section {
+    margin-left: 50px;
+}
+
+.comment-header {
+    height: 75px;
+    line-height: 75px;
+    padding-left: 25px;
+    background: rgba(225,225,225,1);
+    width: 100%;
+    display: inline-block;
+    justify-content: space-between;
+}
+
+.comment-header img {
+    height: 45px;
+    margin-right: 25px;
+}
+
+.reply {
+    padding-left: 10px;
+    margin: 25px 0;
+    border-left: black solid 2px;
 }
