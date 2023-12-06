@@ -7,6 +7,10 @@
       {% include "includes/comment.html" %}
     {% endfor %}
 
+    <div class="row">
+      {% include "includes/pagination.html" %}
+    </div>
+
     <form method="post" action="">
       {% csrf_token %}
       {{ form|crispy }}

@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 
@@ -6,8 +7,22 @@ from core.models import Commentary, User
 
 
 def commentary_list(request: HttpRequest) -> HttpResponse:
-    commentaries = Commentary.objects.filter(parent=None)
+    commentaries_obj_list = Commentary.objects.filter(parent=None)
     form = CommentaryForm()
+
+    items_per_page = 2
+    paginator = Paginator(commentaries_obj_list, items_per_page)
+
+    page = request.GET.get("page")
+
+    try:
+        commentaries = paginator.page(page)
+    except PageNotAnInteger:
+        commentaries = paginator.page(1)
+    except EmptyPage:
+        commentaries = paginator.page(paginator.num_pages)
+
+    is_paginated = commentaries.has_other_pages()
 
     if request.method == "POST":
         comment_form = CommentaryForm(data=request.POST)
@@ -27,6 +42,7 @@ def commentary_list(request: HttpRequest) -> HttpResponse:
         request,
         "core/commentary_list.html",
         context={
+            "is_paginated": is_paginated,
             "commentary_list": commentaries,
             "form": form
         }
@@ -40,7 +56,6 @@ def reply_view(request):
 
         if form.is_valid():
             results = form.cleaned_data
-            print(results, parent_id)
             user = User.objects.create(
                 username=results["username"],
                 email=results["email"],
