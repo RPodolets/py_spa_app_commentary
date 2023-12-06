@@ -10,7 +10,7 @@ def commentary_list(request: HttpRequest) -> HttpResponse:
     commentaries_obj_list = Commentary.objects.filter(parent=None)
     form = CommentaryForm()
 
-    items_per_page = 2
+    items_per_page = 25
     paginator = Paginator(commentaries_obj_list, items_per_page)
 
     page = request.GET.get("page")

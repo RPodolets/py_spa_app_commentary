@@ -1,6 +1,5 @@
 from django.urls import path
 
-# from core.views import CommentaryListView
 from core.views import commentary_list, reply_view
 
 app_name = "core"
