@@ -4,7 +4,7 @@ from django.views.generic import ListView
 from core.forms import CommentaryForm
 from core.models import Commentary, User
 
-ITEMS_PER_PAGE = 3
+ITEMS_PER_PAGE = 25
 
 
 class CommentaryListView(ListView):
