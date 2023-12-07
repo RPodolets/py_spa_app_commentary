@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0"]
+ALLOWED_HOSTS = ["spa-comments-bank.onrender.com", "localhost", "127.0.0.1", "0.0.0.0"]
 
 INTERNAL_IPS = [
     "127.0.0.1",
@@ -111,6 +111,8 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+
+STATIC_ROOT = "staticfiles/"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
