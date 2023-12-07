@@ -70,7 +70,7 @@ DATABASES = {
     }
 }
 
-if os.getenv("DB_TYPE") == "postgres":
+if os.getenv("DB_ENGINE") == "postgres":
     DATABASES.update({
         "default": {
             "ENGINE": "django.db.backends.postgresql",
