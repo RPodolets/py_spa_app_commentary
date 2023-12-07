@@ -3,7 +3,7 @@
 {% load static %}
 <div class="comment-section ps-2 mb-5" id="{{ comment.id }}">
   <div class="mt-3 comment-header">
-      <img src="{% static 'img/profile-default.png' %}"alt="profile-pic">
+      <img src="{% static 'img/profile-default.png' %}" alt="profile-pic">
       <strong>{{ comment.user }}</strong>
       {% if  comment.parent.user %} to <strong>{{ comment.parent.user }}</strong>{% endif %}
       <small class="text-muted">On {{ comment.created.date }}</small>
