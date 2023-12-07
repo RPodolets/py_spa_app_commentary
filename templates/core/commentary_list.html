@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <div class="custom-card">
+    <table class="sortable">
+      <thead>
+      <tr class="sort-panel">
+        <th data-sort="created">
+          <a class="text-muted" href="?sort=created&order={{ order_param }}">Sort by created_at</a>
+        </th>
+        <th data-sort="username">
+          <a class="text-muted" href="?sort=username&order={{ order_param }}">Sort by username</a>
+        </th>
+        <th data-sort="email">
+          <a class="text-muted" href="?sort=email&order={{ order_param }}">Sort by email</a>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td colspan="3">
+          {% for comment in commentary_list %}
+            {% include "includes/comment.html" %}
+          {% endfor %}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="row">
+      {% include "includes/pagination.html" %}
+    </div>
+
+    <hr>
+
+    <form method="post" action="">
+      {% csrf_token %}
+      {% crispy form %}
+    </form>
+
+  </div>
+{% endblock %}
